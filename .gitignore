@@ -1,0 +1,5 @@
+.DS_Store
+*.src
+.netlify
+.vercel
+node_modules
