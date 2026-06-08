@@ -211,7 +211,7 @@ section{position:relative}
 .stats{
   background:var(--ink);color:var(--paper);
   margin-top:var(--gap-section);
-  padding-block:clamp(7rem,11vw,16rem);
+  padding-top:clamp(7rem,11vw,16rem);
 }
 .stats ::selection{background:var(--paper);color:var(--ink)}
 .stats .eyebrow{color:rgba(243,242,237,.6)}
@@ -222,11 +222,27 @@ section{position:relative}
 .stat .num{font-size:var(--t-stat);font-weight:300;letter-spacing:var(--ls-tighter);line-height:.86;font-feature-settings:"tnum"}
 .stat .num em{font-family:inherit;font-style:normal;color:var(--stone)}
 .stat .cap{margin-top:1.8rem;font-size:var(--t-sm);color:rgba(243,242,237,.62);letter-spacing:.01em}
-.stats .reach{
-  margin-top:clamp(4rem,5vw,6rem);display:flex;flex-wrap:wrap;gap:clamp(2rem,5vw,7rem);
-  font-size:var(--t-body);color:rgba(243,242,237,.7);
+
+/* ---------- globe ---------- */
+.globe-outer{position:relative;margin-top:clamp(5rem,7vw,9rem);height:clamp(46rem,58vw,80rem);overflow:hidden}
+#globeViz{position:absolute;left:50%;top:0;transform:translateX(-50%);
+  width:min(135rem,150vw);height:min(135rem,150vw)}
+.globe-label{position:absolute;bottom:0;left:0;right:0;z-index:10;pointer-events:none;
+  text-align:center;padding-bottom:clamp(4rem,6vw,8rem);
+  background:linear-gradient(to top, #101010 0%, rgba(16,16,16,.85) 30%, rgba(16,16,16,.3) 55%, transparent 80%)}
+.globe-count{font-size:clamp(5.5rem,9vw,13rem);font-weight:300;letter-spacing:var(--ls-tighter);
+  line-height:.88;color:var(--paper)}
+.globe-sub{margin-top:1.4rem;font-size:var(--t-body);color:rgba(243,242,237,.58);letter-spacing:.02em}
+/* globe tooltip */
+.g-tip{font-family:var(--font-sans);font-size:1.3rem;line-height:1.4;
+  background:rgba(16,16,16,.88);color:var(--paper);border:1px solid rgba(243,242,237,.18);
+  padding:.8rem 1.2rem;border-radius:.6rem;backdrop-filter:blur(6px);white-space:nowrap}
+.g-tip b{display:block;font-weight:400;margin-bottom:.2rem}
+.g-tip span{color:rgba(243,242,237,.58);font-weight:300}
+@media (max-width:620px){
+  .globe-outer{height:clamp(32rem,80vw,50rem)}
+  #globeViz{height:130%;top:-15%}
 }
-.stats .reach b{color:var(--paper);font-weight:400}
 
 /* ---------- capabilities ---------- */
 .cap-row{
@@ -533,9 +549,13 @@ html.menu-open,html.menu-open body{overflow:hidden}
         <div class="stat"><div class="num">200<em>+</em></div><div class="cap">Development staff</div></div>
         <div class="stat"><div class="num">450<em>+</em></div><div class="cap">Power upgrades</div></div>
       </div>
-      <div class="reach">
-        <div>Acquisitions across <b>140+ cities</b> worldwide</div>
-        <div><b>80+ US cities</b> and counting</div>
+    </div>
+    <!-- Globe: full-bleed, outside .wrap -->
+    <div class="globe-outer">
+      <div id="globeViz"></div>
+      <div class="globe-label">
+        <div class="globe-count">140+ cities</div>
+        <div class="globe-sub">Site sourcing &amp; acquisitions worldwide</div>
       </div>
     </div>
   </section>
@@ -647,6 +667,7 @@ html.menu-open,html.menu-open body{overflow:hidden}
 </footer>
 
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/globe.gl@2.46.1/dist/globe.gl.min.js"></script>
 <script>
 (function(){
   if('scrollRestoration' in history) history.scrollRestoration='manual';
@@ -753,6 +774,63 @@ html.menu-open,html.menu-open body{overflow:hidden}
 
   // year
   document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+<script>
+/* Globe — Globe.gl (Three.js). ~100 sample locations, gold dots, hover tooltip. */
+(function(){
+  if(typeof Globe==='undefined') return;
+  var el=document.getElementById('globeViz'); if(!el) return;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var GOLD='#d8b13a';
+  var cities=["Palo Alto, CA","Austin, TX","Phoenix, AZ","Dallas, TX","Atlanta, GA","Denver, CO",
+    "Seattle, WA","Columbus, OH","Nashville, TN","Las Vegas, NV","Kansas City, MO","Memphis, TN",
+    "Toronto, ON","Mexico City","Monterrey","São Paulo","Bogotá","Santiago","Lima","Buenos Aires",
+    "London","Manchester","Dublin","Rotterdam","Hamburg","Berlin","Frankfurt","Paris","Lyon",
+    "Madrid","Barcelona","Lisbon","Milan","Rome","Zürich","Warsaw","Prague","Vienna","Stockholm",
+    "Oslo","Copenhagen","Helsinki","Istanbul","Dubai","Riyadh","Tel Aviv","Cairo","Nairobi",
+    "Johannesburg","Lagos","Casablanca","Mumbai","Delhi","Bengaluru","Singapore","Jakarta",
+    "Bangkok","Ho Chi Minh City","Manila","Shenzhen","Shanghai","Beijing","Seoul","Tokyo","Osaka",
+    "Sydney","Melbourne","Auckland","Phoenix, AZ","Houston, TX","Chicago, IL","Newark, NJ"];
+  var rnd=function(a,b){return a+Math.random()*(b-a)};
+  var pts=[];
+  for(var i=0;i<104;i++){
+    var bias=Math.random();
+    // weight toward populated bands (N. America, Europe, E. Asia) for a realistic spread
+    var lat,lng;
+    if(bias<0.4){ lat=rnd(30,60); lng=rnd(-125,-70); }      // N. America
+    else if(bias<0.72){ lat=rnd(36,60); lng=rnd(-10,30); }  // Europe
+    else if(bias<0.88){ lat=rnd(1,40); lng=rnd(70,140); }   // Asia
+    else { lat=rnd(-40,55); lng=rnd(-160,170); }            // scattered global
+    pts.push({lat:lat, lng:lng, name:cities[Math.floor(Math.random()*cities.length)],
+      count:1+Math.floor(Math.random()*48)});
+  }
+  var globe=Globe()(el)
+    .backgroundColor('rgba(0,0,0,0)')
+    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+    .showAtmosphere(true).atmosphereColor('#9a8a3f').atmosphereAltitude(0.14)
+    .pointsData(pts).pointLat('lat').pointLng('lng')
+    .pointColor(function(){return GOLD;})
+    .pointAltitude(0.007)
+    .pointRadius(function(d){return 0.18+d.count/110;})
+    .pointResolution(14)
+    .pointLabel(function(d){return '<div class="g-tip"><b>'+d.name+'</b><span>'+d.count+' sites</span></div>';});
+
+  var size=function(){ globe.width(el.clientWidth).height(el.clientHeight); };
+  size();
+  globe.pointOfView({lat:30, lng:6, altitude:1.95}, 0);
+  var c=globe.controls();
+  c.enableZoom=false; c.enablePan=false;
+  c.autoRotate=!reduce; c.autoRotateSpeed=0.32;
+  c.enableRotate=window.innerWidth>620; // keep vertical scroll on touch
+  window.addEventListener('resize', function(){ size(); c.enableRotate=window.innerWidth>620; });
+
+  // pause the render loop when the globe is off-screen (perf)
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ e.isIntersecting ? globe.resumeAnimation() : globe.pauseAnimation(); });
+    },{threshold:0}).observe(document.querySelector('.globe-outer'));
+  }
 })();
 </script>
 <script type="module" src="menu.js"></script>
