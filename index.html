@@ -242,6 +242,8 @@ section{position:relative}
 .stat .cap{margin-top:1.8rem;font-size:var(--t-sm);color:rgba(243,242,237,.62);letter-spacing:.01em}
 
 /* ---------- globe ---------- */
+/* desktop: no gap between stat table and globe */
+@media(min-width:901px){.globe-outer{margin-top:0!important}}
 .globe-outer{position:relative;margin-top:clamp(3.4rem,4.7vw,6rem);height:clamp(39rem,49vw,68rem);overflow:hidden}
 #globeViz{position:absolute;left:50%;top:0;transform:translateX(-50%);
   width:min(135rem,150vw);height:min(135rem,150vw)}
@@ -507,7 +509,7 @@ html.menu-open,html.menu-open body{overflow:hidden}
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <div class="eyebrow rv"><span class="idx">(01)</span> Infrastructure for autonomous transport</div>
+      <div class="eyebrow rv">Autonomous transport infrastructure</div>
       <h1 class="rv">We build the ground autonomous fleets <em>run on.</em></h1>
       <div class="hero-statement rv">
         <div class="meta">
@@ -709,6 +711,7 @@ html.menu-open,html.menu-open body{overflow:hidden}
   var zoom=document.querySelector('.zoom'), zoomImg=document.getElementById('zoomImg');
   var zoomOverlay=document.querySelector('.zoom-overlay');
   var cta=document.getElementById('contact'), ctaImg=document.getElementById('ctaImg');
+  var statsSection=document.getElementById('expertise');
   var clamp=function(v,a,b){return Math.min(Math.max(v,a),b)};
 
   // unified per-frame update: header state, progress, zoom scale, cta parallax
@@ -737,6 +740,14 @@ html.menu-open,html.menu-open body{overflow:hidden}
         // mobile: section isn't pinned — keep the overlay text fully visible
         if(zoomOverlay && zoomOverlay.style.opacity!=='') zoomOverlay.style.opacity='';
         if(zoomImg.style.transform) zoomImg.style.transform='';
+      }
+    }
+    // subtle parallax on the whole stats/globe section
+    if(!reduce && statsSection){
+      var sr=statsSection.getBoundingClientRect();
+      if(sr.bottom>0 && sr.top<window.innerHeight){
+        var sp=clamp((window.innerHeight-sr.top)/(window.innerHeight+sr.height),0,1);
+        statsSection.style.transform='translateY('+((sp-0.5)*-5).toFixed(2)+'%)';
       }
     }
     if(!reduce && cta && ctaImg){
