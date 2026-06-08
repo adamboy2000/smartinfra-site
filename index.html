@@ -224,7 +224,7 @@ section{position:relative}
 .stat .cap{margin-top:1.8rem;font-size:var(--t-sm);color:rgba(243,242,237,.62);letter-spacing:.01em}
 
 /* ---------- globe ---------- */
-.globe-outer{position:relative;margin-top:clamp(5rem,7vw,9rem);height:clamp(46rem,58vw,80rem);overflow:hidden}
+.globe-outer{position:relative;margin-top:clamp(5rem,7vw,9rem);height:clamp(39rem,49vw,68rem);overflow:hidden}
 #globeViz{position:absolute;left:50%;top:0;transform:translateX(-50%);
   width:min(135rem,150vw);height:min(135rem,150vw)}
 #globeViz canvas{filter:grayscale(1) contrast(1.08) brightness(1.06)} /* luminous B&W */
@@ -236,8 +236,8 @@ section{position:relative}
 .globe-label{position:absolute;bottom:0;left:0;right:0;z-index:10;pointer-events:none;
   text-align:center;padding-bottom:clamp(4rem,6vw,8rem);
   background:linear-gradient(to top, #101010 0%, rgba(16,16,16,.85) 30%, rgba(16,16,16,.3) 55%, transparent 80%)}
-.globe-count{font-size:clamp(5.5rem,9vw,13rem);font-weight:300;letter-spacing:var(--ls-tighter);
-  line-height:.88;color:var(--paper)}
+.globe-count{font-size:var(--t-xl);font-weight:300;letter-spacing:var(--ls-tight);
+  line-height:1.02;color:var(--paper)}
 .globe-sub{margin-top:1.4rem;font-size:var(--t-body);color:rgba(243,242,237,.58);letter-spacing:.02em}
 /* globe tooltip */
 .g-tip{font-family:var(--font-sans);font-size:1.3rem;line-height:1.4;
@@ -249,7 +249,7 @@ section{position:relative}
 .g-auto{position:absolute;z-index:8;transform:translate(-50%,-135%);opacity:0;
   transition:opacity .7s ease;pointer-events:none}
 @media (max-width:620px){
-  .globe-outer{height:clamp(32rem,80vw,50rem)}
+  .globe-outer{height:clamp(27rem,68vw,42rem)}
   #globeViz{height:130%;top:-15%}
 }
 
