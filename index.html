@@ -236,6 +236,7 @@ section{position:relative}
   transition:opacity .45s ease,padding-left .45s cubic-bezier(.22,1,.36,1);
 }
 .cap-list .cap-row:last-child{border-bottom:1px solid var(--line)}
+.cap-thumb{display:none} /* desktop uses the sticky figure; thumbs appear on mobile */
 .cap-row .ci{font-size:var(--t-sm);color:var(--stone-d);font-feature-settings:"tnum";padding-top:.6rem}
 .cmain{display:flex;flex-direction:column;gap:.7rem}
 .cap-row .ct{font-size:var(--t-lg);font-weight:400;letter-spacing:var(--ls-tight);line-height:1.05}
@@ -373,8 +374,19 @@ footer{padding-block:clamp(6rem,8vw,10rem) clamp(3rem,4vw,5rem)}
   .section-head{align-items:start}
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .caps-layout{grid-template-columns:1fr;gap:clamp(3rem,6vw,5rem)}
-  .caps-media{position:static}
-  .caps-figure{aspect-ratio:16/10}
+  .caps-media{display:none} /* hover-swap is desktop-only; mobile gets per-card images */
+  /* capabilities → swipeable card carousel on mobile */
+  .cap-list{display:flex;gap:1.4rem;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin-inline:calc(var(--pwx)*-1);padding:0 var(--pwx) 1.6rem;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .cap-list::-webkit-scrollbar{display:none}
+  .cap-row{flex:0 0 78%;scroll-snap-align:start;display:flex;flex-direction:column;gap:0;
+    border:1px solid var(--line);padding:0;overflow:hidden;opacity:1!important}
+  .cap-list .cap-row:last-child{border-bottom:1px solid var(--line)}
+  .cap-thumb{display:block;aspect-ratio:4/3;width:100%}
+  .cap-row .ci{padding:1.8rem 1.8rem 0}
+  .cmain{padding:1rem 1.8rem 2.2rem;gap:.6rem}
+  .cap-row .ca{display:none}
   .zoom{height:auto;margin-top:var(--gap-section)}
   .zoom-sticky{position:relative;height:auto;min-height:78vh}
   .zoom-media img{transform:none!important}
@@ -551,14 +563,14 @@ html.menu-open,html.menu-open body{overflow:hidden}
           <div class="caps-credit"><span class="ck" id="capsLabel">Site &amp; land</span><span>140+ cities</span></div>
         </div>
         <div class="cap-list">
-          <div class="cap-row rv" data-key="hero" data-label="Site &amp; land"><span class="ci">01</span><div class="cmain"><span class="ct">Acquisitions</span><span class="cd">Site sourcing across 140+ cities worldwide.</span></div><span class="ca">↗</span></div>
-          <div class="cap-row rv" data-key="port" data-label="Capital at scale"><span class="ci">02</span><div class="cmain"><span class="ct">Financing</span><span class="cd">Capital structures built around the project.</span></div><span class="ca">↗</span></div>
-          <div class="cap-row rv" data-key="build" data-label="Entitlements"><span class="ci">03</span><div class="cmain"><span class="ct">Permitting &amp; Entitlements</span><span class="cd">Clearing the regulatory critical path.</span></div><span class="ca">↗</span></div>
-          <div class="cap-row rv" data-key="build" data-label="Engineering"><span class="ci">04</span><div class="cmain"><span class="ct">Design &amp; Engineering</span><span class="cd">Layouts engineered for fleet operations.</span></div><span class="ca">↗</span></div>
-          <div class="cap-row rv" data-key="power" data-label="Grid &amp; power"><span class="ci">05</span><div class="cmain"><span class="ct">Power Upgrades</span><span class="cd">Grid capacity where autonomy needs it.</span></div><span class="ca">↗</span></div>
-          <div class="cap-row rv" data-key="build" data-label="On site"><span class="ci">06</span><div class="cmain"><span class="ct">Construction Management</span><span class="cd">Delivery on time, at volume.</span></div><span class="ca">↗</span></div>
-          <div class="cap-row rv" data-key="fleet" data-label="Supply chain"><span class="ci">07</span><div class="cmain"><span class="ct">Procurement</span><span class="cd">Global supply, local execution.</span></div><span class="ca">↗</span></div>
-          <div class="cap-row rv" data-key="port" data-label="Operations"><span class="ci">08</span><div class="cmain"><span class="ct">Property Management</span><span class="cd">Operating the asset for its full life.</span></div><span class="ca">↗</span></div>
+          <div class="cap-row rv" data-key="hero" data-label="Site &amp; land"><div class="cap-thumb media"><img src="images/hero.jpg" alt="Aerial motorway interchange" loading="lazy"></div><span class="ci">01</span><div class="cmain"><span class="ct">Acquisitions</span><span class="cd">Site sourcing across 140+ cities worldwide.</span></div><span class="ca">↗</span></div>
+          <div class="cap-row rv" data-key="port" data-label="Capital at scale"><div class="cap-thumb media"><img src="images/port.jpg" alt="Container terminal from the air" loading="lazy"></div><span class="ci">02</span><div class="cmain"><span class="ct">Financing</span><span class="cd">Capital structures built around the project.</span></div><span class="ca">↗</span></div>
+          <div class="cap-row rv" data-key="build" data-label="Entitlements"><div class="cap-thumb media"><img src="images/build.jpg" alt="Tower crane over a construction site" loading="lazy"></div><span class="ci">03</span><div class="cmain"><span class="ct">Permitting &amp; Entitlements</span><span class="cd">Clearing the regulatory critical path.</span></div><span class="ca">↗</span></div>
+          <div class="cap-row rv" data-key="fleet" data-label="Engineering"><div class="cap-thumb media"><img src="images/fleet.jpg" alt="Logistics truck fleet" loading="lazy"></div><span class="ci">04</span><div class="cmain"><span class="ct">Design &amp; Engineering</span><span class="cd">Layouts engineered for fleet operations.</span></div><span class="ca">↗</span></div>
+          <div class="cap-row rv" data-key="power" data-label="Grid &amp; power"><div class="cap-thumb media"><img src="images/power.jpg" alt="Electrical substation" loading="lazy"></div><span class="ci">05</span><div class="cmain"><span class="ct">Power Upgrades</span><span class="cd">Grid capacity where autonomy needs it.</span></div><span class="ca">↗</span></div>
+          <div class="cap-row rv" data-key="build" data-label="On site"><div class="cap-thumb media"><img src="images/build.jpg" alt="Construction site" loading="lazy"></div><span class="ci">06</span><div class="cmain"><span class="ct">Construction Management</span><span class="cd">Delivery on time, at volume.</span></div><span class="ca">↗</span></div>
+          <div class="cap-row rv" data-key="fleet" data-label="Supply chain"><div class="cap-thumb media"><img src="images/fleet.jpg" alt="Logistics fleet" loading="lazy"></div><span class="ci">07</span><div class="cmain"><span class="ct">Procurement</span><span class="cd">Global supply, local execution.</span></div><span class="ca">↗</span></div>
+          <div class="cap-row rv" data-key="port" data-label="Operations"><div class="cap-thumb media"><img src="images/port.jpg" alt="Container terminal" loading="lazy"></div><span class="ci">08</span><div class="cmain"><span class="ct">Property Management</span><span class="cd">Operating the asset for its full life.</span></div><span class="ca">↗</span></div>
         </div>
       </div>
     </div>
