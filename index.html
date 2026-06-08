@@ -245,6 +245,9 @@ section{position:relative}
   padding:.8rem 1.2rem;border-radius:.6rem;backdrop-filter:blur(6px);white-space:nowrap}
 .g-tip b{display:block;font-weight:400;margin-bottom:.2rem}
 .g-tip span{color:rgba(243,242,237,.58);font-weight:300}
+/* auto-cycling label */
+.g-auto{position:absolute;z-index:8;transform:translate(-50%,-135%);opacity:0;
+  transition:opacity .7s ease;pointer-events:none}
 @media (max-width:620px){
   .globe-outer{height:clamp(32rem,80vw,50rem)}
   #globeViz{height:130%;top:-15%}
@@ -832,10 +835,44 @@ html.menu-open,html.menu-open body{overflow:hidden}
   c.enableRotate=window.innerWidth>620; // keep vertical scroll on touch
   window.addEventListener('resize', function(){ size(); c.enableRotate=window.innerWidth>620; });
 
-  // pause the render loop when the globe is off-screen (perf)
+  // ---- auto-cycling labels: surface one front-facing location at a time ----
+  var tip=document.createElement('div'); tip.className='g-tip g-auto'; el.appendChild(tip);
+  var active=null, visible=true;
+  var camVec=function(){ var p=globe.camera().position; return [p.x,p.y,p.z]; };
+  var frontDot=function(d){
+    var w; try{ w=globe.getCoords(d.lat,d.lng,0); }catch(e){ w=null; }
+    if(!w) return 1;
+    var cm=camVec();
+    var a=Math.hypot(w.x,w.y,w.z), b=Math.hypot(cm[0],cm[1],cm[2]);
+    if(!a||!b) return 1;
+    return (w.x*cm[0]+w.y*cm[1]+w.z*cm[2])/(a*b); // >0 → same hemisphere as camera
+  };
+  var place=function(d){
+    var s=globe.getScreenCoords(d.lat,d.lng,0.01);
+    if(s){ tip.style.left=s.x+'px'; tip.style.top=s.y+'px'; }
+  };
+  var show=function(){
+    if(!visible){ setTimeout(show,1200); return; }
+    var fronts=pts.filter(function(p){return frontDot(p)>0.35;});
+    if(!fronts.length){ setTimeout(show,1000); return; }
+    active=fronts[Math.floor(Math.random()*fronts.length)];
+    tip.innerHTML='<b>'+active.name+'</b><span>'+active.count+' sites</span>';
+    place(active); tip.style.opacity='1';
+    setTimeout(function(){ tip.style.opacity='0'; active=null; setTimeout(show, 900); }, 2600);
+  };
+  (function loop(){
+    if(active){ if(frontDot(active)>0.2){ place(active); } else { tip.style.opacity='0'; } }
+    requestAnimationFrame(loop);
+  })();
+  if(!reduce) setTimeout(show, 1600);
+
+  // pause the render loop + cycling when the globe is off-screen (perf)
   if('IntersectionObserver' in window){
     new IntersectionObserver(function(es){
-      es.forEach(function(e){ e.isIntersecting ? globe.resumeAnimation() : globe.pauseAnimation(); });
+      es.forEach(function(e){
+        visible=e.isIntersecting;
+        visible ? globe.resumeAnimation() : globe.pauseAnimation();
+      });
     },{threshold:0}).observe(document.querySelector('.globe-outer'));
   }
 })();
