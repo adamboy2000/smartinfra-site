@@ -227,6 +227,12 @@ section{position:relative}
 .globe-outer{position:relative;margin-top:clamp(5rem,7vw,9rem);height:clamp(46rem,58vw,80rem);overflow:hidden}
 #globeViz{position:absolute;left:50%;top:0;transform:translateX(-50%);
   width:min(135rem,150vw);height:min(135rem,150vw)}
+#globeViz canvas{filter:grayscale(1) contrast(1.08) brightness(1.06)} /* luminous B&W */
+/* soft blur over the lower globe, fading up, behind the text */
+.globe-blur{position:absolute;left:0;right:0;bottom:0;height:50%;z-index:5;pointer-events:none;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  -webkit-mask-image:linear-gradient(to top,#000 36%,transparent);
+  mask-image:linear-gradient(to top,#000 36%,transparent)}
 .globe-label{position:absolute;bottom:0;left:0;right:0;z-index:10;pointer-events:none;
   text-align:center;padding-bottom:clamp(4rem,6vw,8rem);
   background:linear-gradient(to top, #101010 0%, rgba(16,16,16,.85) 30%, rgba(16,16,16,.3) 55%, transparent 80%)}
@@ -553,6 +559,7 @@ html.menu-open,html.menu-open body{overflow:hidden}
     <!-- Globe: full-bleed, outside .wrap -->
     <div class="globe-outer">
       <div id="globeViz"></div>
+      <div class="globe-blur"></div>
       <div class="globe-label">
         <div class="globe-count">140+ cities</div>
         <div class="globe-sub">Site sourcing &amp; acquisitions worldwide</div>
@@ -782,7 +789,7 @@ html.menu-open,html.menu-open body{overflow:hidden}
   if(typeof Globe==='undefined') return;
   var el=document.getElementById('globeViz'); if(!el) return;
   var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var GOLD='#d8b13a';
+  var GOLD='#fdf6df'; // luminous near-white (globe is rendered B&W)
   var cities=["Palo Alto, CA","Austin, TX","Phoenix, AZ","Dallas, TX","Atlanta, GA","Denver, CO",
     "Seattle, WA","Columbus, OH","Nashville, TN","Las Vegas, NV","Kansas City, MO","Memphis, TN",
     "Toronto, ON","Mexico City","Monterrey","São Paulo","Bogotá","Santiago","Lima","Buenos Aires",
@@ -808,7 +815,7 @@ html.menu-open,html.menu-open body{overflow:hidden}
   var globe=Globe()(el)
     .backgroundColor('rgba(0,0,0,0)')
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-    .showAtmosphere(true).atmosphereColor('#9a8a3f').atmosphereAltitude(0.14)
+    .showAtmosphere(true).atmosphereColor('#cfcfcf').atmosphereAltitude(0.14)
     .pointsData(pts).pointLat('lat').pointLng('lng')
     .pointColor(function(){return GOLD;})
     .pointAltitude(0.007)
