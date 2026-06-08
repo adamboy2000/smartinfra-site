@@ -8,6 +8,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <meta name="description" content="Smartinfra acquires, designs, and delivers the depots, charging yards, and power upgrades the autonomous vehicle and logistics industry runs on — at volume.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Smartinfra">
+<meta property="og:url" content="https://smartinfra-site.vercel.app/">
+<meta property="og:title" content="Smartinfra — Infrastructure for autonomous transport">
+<meta property="og:description" content="We build the ground autonomous fleets run on. The depots, charging yards, and power infrastructure the autonomous vehicle and logistics industry runs on — at volume.">
+<meta property="og:image" content="https://smartinfra-site.vercel.app/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Smartinfra — We build the ground autonomous fleets run on.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Smartinfra — Infrastructure for autonomous transport">
+<meta name="twitter:description" content="We build the ground autonomous fleets run on.">
+<meta name="twitter:image" content="https://smartinfra-site.vercel.app/images/og.jpg">
 <style>
 /* =========================================================
    Smartinfra — editorial redesign
@@ -255,7 +268,9 @@ section{position:relative}
   transition:opacity .7s ease;pointer-events:none}
 @media (max-width:620px){
   .globe-outer{height:clamp(27rem,68vw,42rem)}
-  #globeViz{height:130%;top:-15%}
+  /* keep the canvas square so the globe renders round (no top clip);
+     size to the viewport and nudge down so the apex sits inside */
+  #globeViz{width:min(64rem,165vw);height:min(64rem,165vw);top:6%}
 }
 
 /* ---------- capabilities ---------- */
