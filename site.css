@@ -69,6 +69,11 @@ header.scrolled{
   display:flex;align-items:center;justify-content:space-between;}
 .brand{font-size:1.9rem;letter-spacing:var(--ls-tight);font-weight:400;display:flex;align-items:center;gap:0}
 .brand .dot{color:var(--stone-d)}
+/* logo mark (currentColor via mask → flips with context) */
+.brand::before,.foot-wordmark::before{content:"";flex:none;background-color:currentColor;
+  -webkit-mask:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MzUuODcgNjE2LjAyIj48cGF0aCBkPSJNMTgwLjE2IDBoNzUuNTZ2NzUuNTZoLTc1LjU2ek0yNzAuMjQgMGg3NS41NnY3NS41NmgtNzUuNTZ6TTM2MC4zMiAwaDc1LjU2djc1LjU2aC03NS41NnpNMTgwLjE2IDkwLjA4aDc1LjU2djc1LjU2aC03NS41NnpNMjcwLjI0IDkwLjA4aDc1LjU2djc1LjU2aC03NS41NnpNMTgwLjE2IDE4MC4xNmg3NS41NnY3NS41NmgtNzUuNTZ6TTE4MC4xNiAyNzAuMjNoNzUuNTZ2NzUuNTZoLTc1LjU2ek0yNzAuMjQgMjcwLjIzaDc1LjU2djc1LjU2aC03NS41NnpNMzYwLjMyIDI3MC4yM2g3NS41NnY3NS41NmgtNzUuNTZ6TTE4MC4xNiAzNjAuMzFoNzUuNTZ2NzUuNTZoLTc1LjU2ek0yNzAuMjQgMzYwLjMxaDc1LjU2djc1LjU2aC03NS41NnpNMzYwLjMyIDM2MC4zMWg3NS41NnY3NS41NmgtNzUuNTZ6TTE4MC4xNiA0NTAuMzloNzUuNTZ2NzUuNTZoLTc1LjU2ek0yNzAuMjQgNDUwLjM5aDc1LjU2djc1LjU2aC03NS41NnpNMTgwLjE2IDU0MC40N2g3NS41NnY3NS41NmgtNzUuNTZ6TTkwLjA4IDkwLjA4aDc1LjU2djc1LjU2SDkwLjA4ek0wIDE4MC4xNmg3NS41NnY3NS41Nkgwek05MC4wOCAxODAuMTZoNzUuNTZ2NzUuNTZIOTAuMDh6TTAgMjcwLjIzaDc1LjU2djc1LjU2SDB6TTkwLjA4IDI3MC4yM2g3NS41NnY3NS41Nkg5MC4wOHpNOTAuMDggNDUwLjM5aDc1LjU2djc1LjU2SDkwLjA4ek0wIDU0MC40N2g3NS41NnY3NS41Nkgwek05MC4wOCA1NDAuNDdoNzUuNTZ2NzUuNTZIOTAuMDh6Ii8+PC9zdmc+") center/contain no-repeat;
+  mask:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MzUuODcgNjE2LjAyIj48cGF0aCBkPSJNMTgwLjE2IDBoNzUuNTZ2NzUuNTZoLTc1LjU2ek0yNzAuMjQgMGg3NS41NnY3NS41NmgtNzUuNTZ6TTM2MC4zMiAwaDc1LjU2djc1LjU2aC03NS41NnpNMTgwLjE2IDkwLjA4aDc1LjU2djc1LjU2aC03NS41NnpNMjcwLjI0IDkwLjA4aDc1LjU2djc1LjU2aC03NS41NnpNMTgwLjE2IDE4MC4xNmg3NS41NnY3NS41NmgtNzUuNTZ6TTE4MC4xNiAyNzAuMjNoNzUuNTZ2NzUuNTZoLTc1LjU2ek0yNzAuMjQgMjcwLjIzaDc1LjU2djc1LjU2aC03NS41NnpNMzYwLjMyIDI3MC4yM2g3NS41NnY3NS41NmgtNzUuNTZ6TTE4MC4xNiAzNjAuMzFoNzUuNTZ2NzUuNTZoLTc1LjU2ek0yNzAuMjQgMzYwLjMxaDc1LjU2djc1LjU2aC03NS41NnpNMzYwLjMyIDM2MC4zMWg3NS41NnY3NS41NmgtNzUuNTZ6TTE4MC4xNiA0NTAuMzloNzUuNTZ2NzUuNTZoLTc1LjU2ek0yNzAuMjQgNDUwLjM5aDc1LjU2djc1LjU2aC03NS41NnpNMTgwLjE2IDU0MC40N2g3NS41NnY3NS41NmgtNzUuNTZ6TTkwLjA4IDkwLjA4aDc1LjU2djc1LjU2SDkwLjA4ek0wIDE4MC4xNmg3NS41NnY3NS41Nkgwek05MC4wOCAxODAuMTZoNzUuNTZ2NzUuNTZIOTAuMDh6TTAgMjcwLjIzaDc1LjU2djc1LjU2SDB6TTkwLjA4IDI3MC4yM2g3NS41NnY3NS41Nkg5MC4wOHpNOTAuMDggNDUwLjM5aDc1LjU2djc1LjU2SDkwLjA4ek0wIDU0MC40N2g3NS41NnY3NS41Nkgwek05MC4wOCA1NDAuNDdoNzUuNTZ2NzUuNTZIOTAuMDh6Ii8+PC9zdmc+") center/contain no-repeat}
+.brand::before{width:.74em;height:1.05em;margin-right:.55em}
 .nav-links{display:flex;gap:clamp(1.6rem,2.4vw,3.4rem);align-items:center}
 .nav-links a{font-size:var(--t-sm);letter-spacing:-.01em;color:var(--ink-70);position:relative;transition:color .3s ease}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:-.4rem;height:1px;width:0;
@@ -127,8 +132,10 @@ footer{padding-block:clamp(6rem,8vw,10rem) clamp(3rem,4vw,5rem)}
 .foot-col h4{font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--stone-d);font-weight:400;margin-bottom:1.8rem}
 .foot-col a,.foot-col p{display:block;font-size:var(--t-sm);color:var(--ink-70);line-height:1.9;transition:color .3s ease}
 .foot-col a:hover{color:var(--ink)}
-.foot-wordmark{font-weight:300;font-size:clamp(7rem,17vw,26rem);line-height:.82;
-  letter-spacing:var(--ls-tighter);margin-top:clamp(6rem,9vw,12rem);white-space:nowrap}
+.foot-wordmark{font-weight:300;font-size:clamp(5.5rem,15vw,24rem);line-height:.82;
+  letter-spacing:var(--ls-tighter);margin-top:clamp(6rem,9vw,12rem);white-space:nowrap;
+  display:flex;align-items:center}
+.foot-wordmark::before{width:.58em;height:.82em;margin-right:.36em}
 .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.6rem;
   margin-top:clamp(3rem,4vw,5rem);padding-top:2.4rem;border-top:1px solid var(--line);
   font-size:var(--t-sm);color:var(--ink-70)}
