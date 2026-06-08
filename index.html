@@ -388,15 +388,21 @@ footer{padding-block:clamp(6rem,8vw,10rem) clamp(3rem,4vw,5rem)}
   .cap-row .ca{display:none}
 }
 
-/* mobile menu sheet */
-.sheet{
-  position:fixed;inset:0;z-index:200;background:var(--paper);
-  transform:translateY(-100%);transition:transform .55s cubic-bezier(.22,1,.36,1);
-  display:flex;flex-direction:column;justify-content:center;padding:var(--pwx);
-}
-.sheet.open{transform:none}
-.sheet a{font-size:clamp(3.6rem,11vw,6rem);font-weight:300;letter-spacing:var(--ls-tight);line-height:1.15;color:var(--ink)}
-.sheet .sheet-close{position:absolute;top:1.9rem;right:var(--pwx);font-size:var(--t-sm);background:none;border:none;cursor:pointer;color:var(--ink)}
+/* mobile menu (Motion-driven via menu.js) */
+html.menu-open,html.menu-open body{overflow:hidden}
+.menu{position:fixed;inset:0;z-index:150;background:var(--paper);display:none;opacity:0;flex-direction:column}
+.menu-bar{display:flex;align-items:center;justify-content:space-between;padding:1.9rem var(--pwx)}
+.menu-bar .brand{font-size:1.9rem}
+.menu-close{background:none;border:none;font:inherit;font-size:var(--t-sm);color:var(--ink);cursor:pointer;letter-spacing:-.01em}
+.menu-inner{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pwx) clamp(4rem,10vh,8rem)}
+.menu-nav{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.menu-nav a{display:flex;align-items:baseline;gap:1.4rem;padding:clamp(1.4rem,2.4vh,2.6rem) 0;
+  border-bottom:1px solid var(--line);font-size:clamp(3rem,8.5vw,5rem);font-weight:300;
+  letter-spacing:var(--ls-tight);line-height:1;color:var(--ink);will-change:transform,opacity}
+.menu-nav a .mi{font-size:var(--t-xs);letter-spacing:.06em;color:var(--stone-d)}
+.menu-foot{margin-top:clamp(3rem,5vh,5rem);display:flex;justify-content:space-between;flex-wrap:wrap;
+  gap:1.2rem;font-size:var(--t-sm);color:var(--ink-70);will-change:transform,opacity}
+.menu-foot a{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -412,20 +418,31 @@ footer{padding-block:clamp(6rem,8vw,10rem) clamp(3rem,4vw,5rem)}
       <a href="#expertise">Expertise</a>
       <a href="#capabilities">Process</a>
       <a href="#fit">Where We Fit</a>
-      <a class="nav-cta" href="#contact">Get in Touch</a>
+      <a class="nav-cta" href="/contact">Contact</a>
     </div>
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu">Menu</button>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
 </header>
 
-<!-- MOBILE SHEET -->
-<div class="sheet" id="sheet" aria-hidden="true">
-  <button class="sheet-close" id="sheetClose" aria-label="Close menu">Close</button>
-  <a href="#philosophy">Philosophy</a>
-  <a href="#expertise">Expertise</a>
-  <a href="#capabilities">Process</a>
-  <a href="#fit">Where We Fit</a>
-  <a href="#contact">Get in Touch</a>
+<!-- MOBILE MENU -->
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu-bar">
+    <a class="brand" href="#top">Smartinfra<span class="dot">.</span></a>
+    <button class="menu-close" aria-label="Close menu">Close</button>
+  </div>
+  <div class="menu-inner">
+    <nav class="menu-nav">
+      <a href="#philosophy"><span class="mi">01</span> Philosophy</a>
+      <a href="#expertise"><span class="mi">02</span> Expertise</a>
+      <a href="#capabilities"><span class="mi">03</span> Process</a>
+      <a href="#fit"><span class="mi">04</span> Where We Fit</a>
+      <a href="/contact"><span class="mi">05</span> Contact</a>
+    </nav>
+    <div class="menu-foot">
+      <a href="mailto:info@smartinfra.com">info@smartinfra.com</a>
+      <span>Infrastructure for autonomous transport</span>
+    </div>
+  </div>
 </div>
 
 <main id="top">
@@ -572,7 +589,8 @@ footer{padding-block:clamp(6rem,8vw,10rem) clamp(3rem,4vw,5rem)}
       <div class="eyebrow"><span class="idx">(06)</span> Get in Touch</div>
       <h2>Bring us the site. We'll build the <em>rest.</em></h2>
       <div class="cta-actions">
-        <button class="btn btn-primary" id="copyEmail" data-email="info@smartinfra.com">
+        <a class="btn btn-primary" href="/contact">Start a project <span class="arr">↗</span></a>
+        <button class="btn" id="copyEmail" data-email="info@smartinfra.com">
           info@smartinfra.com <span class="arr">↗</span>
         </button>
         <span class="copied" id="copied">Copied</span>
@@ -601,19 +619,18 @@ footer{padding-block:clamp(6rem,8vw,10rem) clamp(3rem,4vw,5rem)}
         <a href="#philosophy">Philosophy</a>
         <a href="#expertise">Expertise</a>
         <a href="#capabilities">How We Work</a>
-        <a href="#fit">Where We Fit</a>
+        <a href="/contact">Contact</a>
       </div>
       <div class="foot-col">
         <h4>Legal</h4>
-        <a href="#">Terms</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Cookie Policy</a>
+        <a href="/terms">Terms</a>
+        <a href="/privacy">Privacy Policy</a>
       </div>
     </div>
     <div class="foot-wordmark">Smartinfra<span style="color:var(--stone-d)">.</span></div>
     <div class="foot-bottom">
       <div>© <span id="yr">2026</span> Smartinfra. Infrastructure for autonomous transport.</div>
-      <div class="legal"><span>Built end to end.</span></div>
+      <div class="legal"><a href="/terms">Terms</a><a href="/privacy">Privacy</a></div>
     </div>
   </div>
 </footer>
@@ -669,13 +686,15 @@ footer{padding-block:clamp(6rem,8vw,10rem) clamp(3rem,4vw,5rem)}
     lenis.on('scroll', update);
     var raf=function(t){lenis.raf(t); requestAnimationFrame(raf)};
     requestAnimationFrame(raf);
+    window.lenis=lenis; // let menu.js pause/resume scroll
   }
   window.addEventListener('scroll', update, {passive:true});
   window.addEventListener('resize', update);
   update();
 
-  // smooth anchor scrolling
+  // smooth anchor scrolling (menu links are handled in menu.js)
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    if(a.closest('#menu')) return;
     a.addEventListener('click', function(e){
       var id=a.getAttribute('href');
       if(id.length<2) return;
@@ -721,16 +740,10 @@ footer{padding-block:clamp(6rem,8vw,10rem) clamp(3rem,4vw,5rem)}
     });
   }
 
-  // mobile sheet
-  var sheet=document.getElementById('sheet'), mb=document.getElementById('menuBtn'), sc=document.getElementById('sheetClose');
-  var openS=function(){sheet.classList.add('open');sheet.setAttribute('aria-hidden','false')};
-  var closeS=function(){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true')};
-  mb&&mb.addEventListener('click',openS); sc&&sc.addEventListener('click',closeS);
-  sheet.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeS)});
-
   // year
   document.getElementById('yr').textContent=new Date().getFullYear();
 })();
 </script>
+<script type="module" src="menu.js"></script>
 </body>
 </html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact — Smartinfra</title>
+<meta name="description" content="Start a project with Smartinfra. Tell us about the site and we'll take it from there.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header id="hdr">
+  <nav class="nav">
+    <a class="brand" href="/">Smartinfra<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="/#philosophy">Philosophy</a>
+      <a href="/#expertise">Expertise</a>
+      <a href="/#capabilities">Process</a>
+      <a href="/#fit">Where We Fit</a>
+      <a class="nav-cta" href="/contact">Contact</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu">Menu</button>
+  </nav>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu-bar">
+    <a class="brand" href="/">Smartinfra<span class="dot">.</span></a>
+    <button class="menu-close" aria-label="Close menu">Close</button>
+  </div>
+  <div class="menu-inner">
+    <nav class="menu-nav">
+      <a href="/#philosophy"><span class="mi">01</span> Philosophy</a>
+      <a href="/#expertise"><span class="mi">02</span> Expertise</a>
+      <a href="/#capabilities"><span class="mi">03</span> Process</a>
+      <a href="/#fit"><span class="mi">04</span> Where We Fit</a>
+      <a href="/contact"><span class="mi">05</span> Contact</a>
+    </nav>
+    <div class="menu-foot">
+      <a href="mailto:info@smartinfra.com">info@smartinfra.com</a>
+      <span>Infrastructure for autonomous transport</span>
+    </div>
+  </div>
+</div>
+
+<main class="page">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow rv"><span class="idx">(Contact)</span> Get in touch</div>
+      <h1 class="rv">Bring us the site. We'll build the rest.</h1>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-aside rv">
+        <p>Tell us where the project is and what it needs. We acquire, design, power, and operate — so a single message reaches the whole team.</p>
+        <div style="margin-bottom:2.8rem">
+          <div class="label">Email</div>
+          <a class="big" href="mailto:info@smartinfra.com">info@smartinfra.com</a>
+        </div>
+        <div>
+          <div class="label">Reach</div>
+          <div class="big">140+ cities worldwide</div>
+        </div>
+      </div>
+
+      <div class="rv">
+        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <!-- Web3Forms: replace with the access key emailed to info@smartinfra.com -->
+          <input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_ACCESS_KEY">
+          <input type="hidden" name="subject" value="New inquiry from smartinfra.com">
+          <input type="hidden" name="from_name" value="Smartinfra Website">
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+          <div class="field-row">
+            <div class="field">
+              <label for="firstName">First name</label>
+              <input id="firstName" name="First name" type="text" autocomplete="given-name" required placeholder="Jane">
+            </div>
+            <div class="field">
+              <label for="lastName">Last name</label>
+              <input id="lastName" name="Last name" type="text" autocomplete="family-name" required placeholder="Doe">
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="jane@company.com">
+            </div>
+            <div class="field">
+              <label for="phone">Phone <em>(optional)</em></label>
+              <input id="phone" name="Phone" type="tel" autocomplete="tel" placeholder="+1 555 000 0000">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="company">Company <em>(optional)</em></label>
+            <input id="company" name="Company" type="text" autocomplete="organization" placeholder="Company name">
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Where is the site, and what does it need?"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-dark">Send message <span class="arr">↗</span></button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-dir">
+      <div class="foot-col"><h4>Contact</h4><a href="mailto:info@smartinfra.com">info@smartinfra.com</a><p>General inquiries</p></div>
+      <div class="foot-col"><h4>Reach</h4><p>140+ cities worldwide</p><p>80+ US cities</p></div>
+      <div class="foot-col"><h4>Index</h4><a href="/#philosophy">Philosophy</a><a href="/#expertise">Expertise</a><a href="/#capabilities">How We Work</a><a href="/contact">Contact</a></div>
+      <div class="foot-col"><h4>Legal</h4><a href="/terms">Terms</a><a href="/privacy">Privacy Policy</a></div>
+    </div>
+    <div class="foot-wordmark">Smartinfra<span style="color:var(--stone-d)">.</span></div>
+    <div class="foot-bottom">
+      <div>© <span id="yr">2026</span> Smartinfra. Infrastructure for autonomous transport.</div>
+      <div class="legal"><a href="/terms">Terms</a><a href="/privacy">Privacy</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script type="module" src="menu.js"></script>
+<script>
+(function(){
+  var form=document.getElementById('contactForm');
+  var status=document.getElementById('formStatus');
+  if(!form) return;
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    status.textContent=''; status.className='form-status';
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    var btn=form.querySelector('button[type=submit]');
+    var label=btn.innerHTML;
+    btn.disabled=true; btn.textContent='Sending…';
+    try{
+      var res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+      var json=await res.json();
+      if(json.success){
+        form.style.display='none';
+        status.className='form-status ok';
+        status.textContent='Thanks — your message is on its way. We’ll be in touch shortly.';
+      } else { throw new Error(json.message||'Submit failed'); }
+    }catch(err){
+      btn.disabled=false; btn.innerHTML=label;
+      status.className='form-status err';
+      status.innerHTML='Something went wrong. Email us directly at <a href="mailto:info@smartinfra.com">info@smartinfra.com</a>.';
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -30,8 +30,20 @@ npx vercel          # preview (staging) URL
 npx vercel --prod   # promote to production
 ```
 
+## Pages
+
+- `/` homepage, `/contact`, `/terms`, `/privacy`
+- Shared chrome: `site.css` (styles), `menu.js` (Motion mobile menu), `site.js` (subpage behavior)
+
+## Contact form
+
+`contact.html` posts to **Web3Forms** (no backend needed). To make it live:
+1. Go to web3forms.com, enter **info@smartinfra.com**, get the access key it emails you.
+2. In `contact.html`, replace `REPLACE_WITH_WEB3FORMS_ACCESS_KEY` with that key.
+Until then the form shows a graceful "email us directly" fallback.
+
 ## Notes
 
-- Fonts: Inter via Google Fonts. Lenis smooth-scroll via unpkg CDN.
+- Fonts: Inter via Google Fonts. Lenis smooth-scroll + Motion (motion.dev) via CDN.
 - Four of six images are CC BY-SA (attribution required for production use);
   swap for owned/CC0 assets before public launch.
